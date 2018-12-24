@@ -1,9 +1,16 @@
 package com.csj.linkorder.common;
 
+import com.csj.linkorder.config.ConfigProperties;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.Properties;
 
+@Component
 public class Global {
+
     public static Properties properties;
 
     static {
@@ -15,17 +22,44 @@ public class Global {
         }
     }
 
-    public static String getGeneratorPath() {
-        return properties.get("generator.path") == null ? "" : properties.get("generator.path").toString();
+    public static String getProperty(String key) {
+        return properties.getProperty(key, "");
     }
-    public static String getDbUrl() {
-        return properties.get("generator.path") == null ? "" : properties.get("generator.path").toString();
+
+    public static String getProperty(String key, String defaultValue) {
+        return properties.getProperty(key, defaultValue);
     }
-    public static String getDbUserName() {
-        return properties.get("generator.path") == null ? "" : properties.get("generator.path").toString();
+
+
+    @Autowired
+    private ConfigProperties configPropertiesAutowired;
+
+    private static ConfigProperties configProperties;
+
+    @PostConstruct
+    public void init() {
+        configProperties = this.configPropertiesAutowired;
     }
-    public static String getDbPassword() {
-        return properties.get("generator.path") == null ? "" : properties.get("generator.path").toString();
+
+    public static String getMpDataSourceDriverClassName() {
+        return configProperties.getDriverClassName();
     }
+
+    public static String getMpDbUrl() {
+        return configProperties.getDbUrl();
+    }
+
+    public static String getMpDbUserName() {
+        return configProperties.getDbUserName();
+    }
+
+    public static String getMpDbPassword() {
+        return configProperties.getDbPassword();
+    }
+
+    public static String getMpParentPackage() {
+        return configProperties.getParentPackage();
+    }
+
 
 }
