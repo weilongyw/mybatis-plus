@@ -1,6 +1,6 @@
 package com.csj.linkorder.common;
 
-import com.csj.linkorder.config.ConfigProperties;
+import com.csj.linkorder.config.MybatisPlusConfigProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -32,33 +32,33 @@ public class Global {
 
 
     @Autowired
-    private ConfigProperties configPropertiesAutowired;
+    private MybatisPlusConfigProperties mybatisPlusConfigPropertiesAutowired;
 
-    private static ConfigProperties configProperties;
+    private static MybatisPlusConfigProperties mybatisPlusConfigProperties;
 
     @PostConstruct
     public void init() {
-        configProperties = this.configPropertiesAutowired;
+        mybatisPlusConfigProperties = this.mybatisPlusConfigPropertiesAutowired;
     }
 
     public static String getMpDataSourceDriverClassName() {
-        return configProperties.getDriverClassName();
+        return mybatisPlusConfigProperties.getDriverClassName();
     }
 
     public static String getMpDbUrl() {
-        return configProperties.getDbUrl();
+        return mybatisPlusConfigProperties.getDbUrl();
     }
 
     public static String getMpDbUserName() {
-        return configProperties.getDbUserName();
+        return mybatisPlusConfigProperties.getDbUserName();
     }
 
     public static String getMpDbPassword() {
-        return configProperties.getDbPassword();
+        return mybatisPlusConfigProperties.getDbPassword();
     }
 
     public static String getMpParentPackage() {
-        return configProperties.getParentPackage();
+        return mybatisPlusConfigProperties.getParentPackage();
     }
 
 

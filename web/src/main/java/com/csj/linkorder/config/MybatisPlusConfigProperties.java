@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "mp")
 @Data
-public class ConfigProperties {
+public class MybatisPlusConfigProperties {
 
     private String driverClassName;
 
@@ -20,5 +20,5 @@ public class ConfigProperties {
 
     private String parentPackage;
 
-    
+
 }

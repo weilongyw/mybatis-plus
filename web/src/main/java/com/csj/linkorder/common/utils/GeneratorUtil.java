@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import com.csj.linkorder.common.Global;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.List;
 public class GeneratorUtil {
 
 
-    public static void main(String[] args) {
+    public static void generateCode(String author, String module, String tableName) {
         // 代码生成器
         AutoGenerator mpg = new AutoGenerator();
 
@@ -24,23 +25,23 @@ public class GeneratorUtil {
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir") + File.separator + "web";
         gc.setOutputDir(projectPath + "/src/main/java");
-        gc.setAuthor("yw");
+        gc.setAuthor(author);
         gc.setOpen(false);
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://192.168.1.206:3306/linkorder?useUnicode=true&useSSL=false&characterEncoding=utf8");
+        dsc.setUrl(Global.getMpDbUrl());
         //dsc.setSchemaName("linkorder");
-        dsc.setDriverName("com.mysql.jdbc.Driver");
-        dsc.setUsername("b2btest");
-        dsc.setPassword("b2btest");
+        dsc.setDriverName(Global.getMpDataSourceDriverClassName());
+        dsc.setUsername(Global.getMpDbUserName());
+        dsc.setPassword(Global.getMpDbPassword());
         mpg.setDataSource(dsc);
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName("sys");
-        pc.setParent("com.csj.linkorder");
+        pc.setModuleName(module);
+        pc.setParent(Global.getMpParentPackage());
         mpg.setPackageInfo(pc);
 
         // 自定义配置
@@ -86,7 +87,7 @@ public class GeneratorUtil {
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
         //strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");
-        strategy.setInclude("sys_user");
+        strategy.setInclude(tableName);
         strategy.setSuperEntityColumns("id");
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(pc.getModuleName() + "_");
